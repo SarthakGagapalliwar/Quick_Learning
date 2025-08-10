@@ -1,0 +1,32 @@
+Nginx=> is a powerfull web server ansd uses a non-threaded, event driven architecture
+
+it can also do other important things, Such as (load balancing) ,( Http caching )or be used as a (reverse proxy).
+
+caching=>When you visit a website, your browser saves some of its files (like images, CSS, or API responses) in a cache — a temporary storage.
+Next time you visit the same page, your browser can reuse those saved files instead of downloading them again from the server.
+
+
+normal http connection -> direact coonect ro server and clint
+
+Nginx like VPN not connect to sever direact it is midle for the connection
+
+
+
+Forward Proxy → A server that communicates with external servers on behalf of multiple clients. Used to hide client identity, filter requests, or route traffic (e.g., through a VPN).
+
+Reverse Proxy → A server that communicates with clients on behalf of one or more servers. Used to hide server identity, balance load, or add security.
+
+most of the time Fp and Rp is Nginx
+
+
+Nginx=>
+*can handle 10000 Concurrent requests
+*Cache HTTP requests
+*Act as Reverse Proxy
+*Act as load balancer
+*Act as an Api Gatway => An API Gateway is like a single entry gate for all client requests to your backend services.[ Auth Service ]   [ Product Service ]  [ Payment Service ] [ Order Service ]
+*Serve and Cache Static files like images, videos,encrypting
+*handle SSL certificat 
+
+
+

@@ -1,0 +1,45 @@
+ SSL(Secure Sockets Layer)
+
+What is an SSL Certificate and do we need it? - An SSL certificate is a digital certificate that provides security for online communication by encrypting data transmitted between a website and a user's browser
+
+
+WHy we use ssl certoficat=-> explation by clint and server
+
+
+clint ----->GET----> server
+      <-----Res<----
+
+in this server have have tere own public key and private key
+
+server goes to Auth who ake the the server ex-> we take LetsEncrypt;
+
+lets Encrypt => take the public key from the server and domain name form the server and make the certificat have the Sign of letsEncy=>public server + public key Auth(letsEncrypt);
+
+    SSL certificat
+  ----------------- 
+  | pub key server|
+  |         |
+  |---------|
+  | Sign    |    Sign=>public server + public key Auth(letsEncrypt);
+  |         |
+  |---------|  
+
+  public key of certificat
+  private key of certificat
+
+
+this certificat have send to server then this certificat have given to clint and clint have the public key of server and certificat , the key have send by the server will first verify that this is OG public that have send by the server 
+to check this clint will try to open the certificat need the public key of letsEncrypt 
+it will take the public key from it and to check the public that have share by the server 
+is correct or not Now it will open(verify) by public key of letsEncrypt ans public key of server
+if certificat open then the public key of server is correct; 
+
+
+
+then clint make the own public key => and decrypt by the public that have share by the server 
+then this public(clint) will shre to server which can decrypt by server private key only 
+
+
+
+
+SAME WE HAVE TLS also =>Used in all modern secure connections
