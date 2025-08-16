@@ -1,0 +1,31 @@
+When you make a payment, the process goes like this:
+
+Payment Gateway Role=>
+The user enters card details such as card number, CVV, and expiry date.
+The payment gateway securely sends this information to the bank.
+It also performs address verification to match the billing address and prevent fraud.
+
+Security Measures=>
+Encryption: Protects payment data during transmission (from device → gateway → merchant). The data is encrypted so it becomes unreadable without a decryption key.
+Tokenization: Protects data at rest (when stored). Instead of storing the actual card number, a randomly generated token is stored. This token is used for future transactions instead of the real card number.
+
+✅ Key difference:
+Encryption = original data is encrypted and decrypted when needed.
+Tokenization = original data is never stored; only tokens are kept.
+
+Payment Gateway vs Processor
+The payment gateway does not check the funds on the card.
+It simply acts as a bridge, forwarding the encrypted payment information to the payment processor.
+
+Payment Processor Role
+The processor communicates with the issuing bank (the customer’s bank).
+The bank checks if there are sufficient funds and whether the transaction is valid.
+If approved, the processor authorizes the transaction and moves the money.
+If declined, the processor informs the payment gateway, which then notifies the merchant.
+
+Working with Visa/Mastercard
+
+When transactions involve networks like Visa or Mastercard, both the payment gateway and the payment processor work together.
+The networks ensure that:
+The transaction is authorized.
+Funds move correctly from the customer’s account to the merchant’s account
