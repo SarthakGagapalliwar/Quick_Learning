@@ -1,0 +1,84 @@
+🔑 API Keys
+API keys are like entry tickets 🎟️ — each client gets one and must show it with every request. They’re simple to use but don’t identify the user, only the app. Best for public or low-security APIs (like weather or maps).
+
+👤 Basic Authentication
+Basic Auth is the old-school way where you send your username and password (encoded) with every request. It’s easy but unsafe if not used over HTTPS. Best for testing or small internal tools.
+
+🔒 OAuth 2.0
+OAuth 2.0 is like getting a visitor pass 🪪 — you log in via Google/Facebook, and they give you a temporary token. It’s secure and widely used when you need delegated access, like social media integrations.
+
+🪙 JWT (JSON Web Tokens)
+JWT is like a signed movie ticket 🎬 — it contains your info, can’t be tampered with, and has an expiry time. Perfect for modern web/mobile apps where servers don’t want to store user sessions.
+
+✍️ HMAC (Hash-based Message Authentication)
+HMAC is like putting a secret signature ✒️ on every request so the server knows it’s real and unchanged. It’s very secure and commonly used in banking, payment gateways, and enterprise APIs.
+
+🍪 Session Cookies
+Session cookies are like a stamp on your hand at a club 🎉 — once logged in, you don’t need to show credentials again, the cookie does it. Great for browser-based logins, but not the best for open APIs.
+
+
+🌟 Quick Recap
+
+API Keys → Quick, simple tracking.
+Basic Auth → Old-school, test only.
+OAuth2 → Delegated logins (Google, GitHub).
+JWT → Stateless, modern apps.
+HMAC → Super secure, server-to-server.
+Cookies → Browser sessions.
+
+Stateless Authentication (server doesn’t keep memory)
+API Keys → Just a key checked each time, no server session.
+Basic Auth → Username/password sent every request, nothing stored.
+OAuth2 (access tokens) → Tokens are stateless, but the refresh token / authorization server part can be stateful.
+JWT → Pure stateless (all info + expiry inside the token).
+HMAC → Stateless, server only verifies signature, no memory needed.
+
+Stateful Authentication (server remembers session)
+Cookies (sessions) → Classic stateful method, server stores session data and links it to your cookie/session ID.
+
+
+statefull Authentication = Stateful authentication means the server keeps memory (state) of logged-in users.
+When you log in, the server creates a session (with your user ID, etc.) and gives you a token or session ID stored in a cookie.
+Each time you send a request, the server looks up your session in its memory.
+When you log out, the server deletes the session, so the token/session ID is no longer valid.
+
+🌟 In short: The server remembers you (keeps state).
+
+Why do we use sessions in software?
+Without sessions: every time you click something, you’d have to log in again with username and password 😵.
+With sessions: you log in once, server remembers you with a session ID, and you can keep browsing smoothly.
+
+A session = server’s memory of “who you are” while you’re logged in. Without it, every request would feel like you’re a stranger.
+
+
+
+
+🪙 Stateless Authentication
+
+Stateless authentication means the server does not keep memory of logged-in users.
+When you log in, the server gives you a signed token (like a JWT) that contains your user info and expiry.
+Each time you send a request, you include this token, and the server verifies it without looking up any stored session.
+When you log out, the token just expires (or is discarded by the client), since the server isn’t storing it.
+
+🌟 In short: The server doesn’t remember you — instead, you carry your own proof (token) every time.
+
+Why do we use stateless auth in software?
+Without it: the server must store lots of sessions, which is hard to scale in big systems.
+With it: the server only verifies the token, no need to remember anything. This makes it faster and more scalable 🚀.
+
+🛠️ A token = your ID card
+In stateless auth, you don’t rely on the server’s memory. Instead, you carry your own signed ID card (JWT) that proves who you are.
+Every request shows this ID card, and the server checks its signature.
+No ID card → you’re a stranger.
+
+
+
+
+Example:
+
+Stateless (JWT): Your movie ticket 🎬 has a printed expiry date. After that date, it’s invalid — no one needs to remember anything.
+Stateful (Session): Your table at a restaurant ⏳ is reserved for 2 hours. After 2 hours, the waiter removes your table data.
+
+✅ So both support expiry —
+Stateless → expiry written inside the token itself.
+Stateful → expiry stored on the server with the session.
