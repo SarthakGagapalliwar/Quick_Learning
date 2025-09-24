@@ -1,0 +1,37 @@
+1. API Gateway
+Definition: An API Gateway acts as a single entry point for multiple
+APIs or microservices. It manages authentication, rate limiting,
+request routing, and API response caching.
+When to Use:
+When you have multiple microservices that clients consume.
+When you need centralized authentication, logging, and monitoring.
+When you want to apply policies like rate-limiting, request transformation, or security rules.
+
+2. Load Balancer
+Definition: A Load Balancer distributes incoming traffic across multiple 
+servers running the same service, ensuring no single server is overloaded.
+When to Use:
+When you want to scale a service horizontally (same app on multiple servers).
+When you need high availability (if one server goes down, traffic goes to others).
+When you want to improve performance and reliability.
+
+3. Reverse Proxy
+Definition: A Reverse Proxy sits between clients and servers, forwarding client 
+requests to the backend server. It can cache responses,
+handle SSL termination, compress responses, and optimize traffic for web apps.
+When to Use:
+When you want to protect backend servers from direct exposure.
+When you need caching, compression, or SSL offloading.
+When optimizing performance of a single web application.
+
+
+| Feature / Aspect   | API Gateway 🚪                              | Load Balancer ⚖️                                    | Reverse Proxy 🔄                             |
+| ------------------ | ------------------------------------------- | --------------------------------------------------- | -------------------------------------------- |
+|   Core Purpose     | Entry point for multiple APIs/microservices | Distribute traffic among multiple servers           | Optimize and secure web apps                 |
+|   Main Job         | Manage multiple API services                | Distribute client requests evenly                   | Forward client requests to backend, optimize |
+|   Scope            | Works across   different services           | Works with   same service   replicas                | Works with   single web application          |
+|   Authentication   | Advanced   (OAuth, JWT, API Keys)           |   Basic   or none                                   |   Basic   (simple checks, SSL)               |
+|   Smart Routing    | Yes (based on request path, headers, etc.)  | App Load Balancer → Yes, Network Load Balancer → No |  Limited                                      |
+|   Caching          | API responses (reduces repeated calls)      | Basic sticky sessions                               |   Advanced   (content caching, compression)  |
+|   OSI Layer        | Layer 7   (HTTP, JSON, REST APIs)           | Layer 4 (TCP/UDP, NLB) & Layer 7 (HTTP/HTTPS, ALB)  |   Layer 7                                    |
+|   Best Use Case    | Microservices & APIs                        | Scaling same service (e.g., web servers)            | Single app performance, SSL offloading       |

@@ -65,3 +65,50 @@ Redis HashMap → Exact yes/no check.
 Trie → Prefix & autocomplete.
 B+ Tree → Large-scale ordered lookups.
 Bloom Filter → Fast rejection at scale.
+
+
+
+
+
+User enters username "sarthak123"
+
+↓ Step 1: Bloom Filter
+   - If "not present" → username available ✅
+   - If "might exist" → go to Redis
+
+↓ Step 2: Redis HashMap
+   - If "not present" → username available ✅
+   - If "present" → username taken ❌
+
+↓ Step 3: Trie
+   - Suggest alternatives:
+     "sarthak1234"
+     "sarthak_xyz"
+     "sarthak2025"
+
+↓ Step 4: B+ Tree (DB)
+   - Persist data for long-term storage
+   - Support range queries, backups
+
+
+
+
++---------------------------+
+|        Bloom Filter       |   → Fast rejection (probabilistic)
++---------------------------+
+            |
+            v
++---------------------------+
+|       Redis HashMap       |   → Exact yes/no lookup
++---------------------------+
+            |
+            v
++---------------------------+
+|           Trie            |   → Suggestions / autocomplete
++---------------------------+
+            |
+            v
++---------------------------+
+|         B+ Tree DB        |   → Persistent storage / range queries
++---------------------------+
+  
