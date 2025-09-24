@@ -1,0 +1,80 @@
+What is Apache Kafka?
+Apache Kafka is a distributed event streaming platform used for 
+building real-time data pipelines and streaming applications.
+It’s designed to handle high-throughput, low-latency, fault-tolerant 
+messaging between systems or applications.
+
+Think of Kafka as a high-performance, durable, distributed “publish-subscribe messaging system” where producers publish 
+events, and consumers subscribe to them.
+
+
+🔹 Features of Kafka
+
+✅ High Throughput – Can handle millions of events per second.
+✅ Low Latency – Sub-10ms response times in typical setups.
+✅ Scalable – Add more brokers/partitions to scale horizontally.
+✅ Durability – Messages stored on disk & replicated across brokers.
+✅ Fault Tolerant – Works even if servers crash.
+✅ Stream Processing – With Kafka Streams, you can process data in real-time.
+✅ Exactly-once semantics – Guarantees for message delivery (when configured properly).
+
+🔹 Advantages of Kafka
+
+Handles huge volumes of data (scale horizontally).
+Durable storage – keeps events for a defined retention period.
+Real-time streaming with exactly-once guarantees.
+Flexible consumers – multiple services can consume the same events independently.
+Integrates with Spark, Flink, Hadoop, Elasticsearch, MongoDB, etc.
+
+🔹 Disadvantages of Kafka
+
+Operational complexity – Setting up & maintaining Kafka clusters is not trivial.
+Not optimized for small messages – Best for large-scale event streaming.
+Learning curve – Steeper compared to simple message queues.
+Ordering guarantee only per partition, not across the whole topic.
+High resource usage – Needs good CPU, memory, and disk for performance.
+
+Kafka is best when you need a scalable, fault-tolerant, real-time event 
+streaming platform for large amounts of data. It’s the backbone of real-time 
+analytics, event-driven architectures, and data pipelines in big companies like 
+LinkedIn, Netflix, Uber, and Airbnb.
+
+
+
+Why not just use Databases?
+A database is mainly designed for storing and retrieving structured data (tables, schema, SQL).
+Databases store data on disk (secondary memory), which makes them durable — even if the server restarts, data is safe.
+Databases are not built for high-speed ingestion of millions of events per second.
+
+Why use Kafka then?
+Kafka is not a database. It is a distributed event streaming system.
+Kafka stores data in log files on disk (not RAM only), but it’s optimized with sequential writes and page caching, which makes it extremely fast — close to memory speed.
+Kafka can handle unstructured or semi-structured data (no schema required).
+Unlike a database, Kafka allows multiple consumers to read the same data stream independently.
+
+Example: Zomato Delivery
+
+When a delivery boy is moving, his location (latitude, longitude) is updated every second.
+This produces a continuous stream of unstructured data.
+Kafka can capture these real-time events and push them into different systems:
+Location service → to track delivery live on the app.
+Analytics database → to calculate average delivery times.
+Notification system → to send alerts if a rider is late.
+So Kafka acts as a real-time pipeline that streams events from producers (delivery app) to consumers (databases, dashboards, services).
+
+
+Structured vs Unstructured in this case
+Structured Data: Order details (start time, end time, customer ID, total price) → stored in a relational database.
+Unstructured / Streaming Data: GPS coordinates of delivery boy (changes every second) → streamed into Kafka and processed in real-time.
+
+Conclusion
+
+Database = final storage, durable, queryable (historical records).
+Kafka = real-time event stream, scalable, high-throughput (live data).
+Both work together:
+Kafka handles real-time ingestion.
+Database handles long-term storage and queries.
+
+In short:
+Kafka = highway for fast-moving events 🚦
+Database = warehouse for storing structured data 🏢
