@@ -1,0 +1,87 @@
+jwt token use single token sign  and use same sign to verfity ths is best for monolithic
+
+Typical Monolithic Application (GET /products)
+
+
+             Typical Monolith Application
+ ┌──────────┐      GET /products      ┌──────────┐      Products      ┌────────────┐
+ │  Client │ ─────────────────────▶    │  Server │ ─────────────────▶   │  Database │
+ └──────────┘                         └──────────┘                    └────────────┘
+                                          │
+                                          │ Protected route
+                                          ▼
+                                   Needs authentication
+
+🧠 Explanation:
+The client requests /products.
+The server checks authentication (protected route).
+If valid, the server fetches data from the database and returns it.
+
+Monolith Login (JWT Authentication)
+
+
+             Typical Monolith Application (JWT Auth)
+
+  ┌──────────┐     POST /login      ┌──────────┐      Products      ┌────────────┐
+  │ Client  │ ───────────────────▶ │   Server  │ ─────────────────▶   │  Database  │
+  └──────────┘    username/password └──────────┘                    └────────────┘
+         ▲                              │
+         │                              │  Creates JWT token
+         │                              │  Signed using HS256 (secret)
+         │                              ▼
+         │                   Symmetric Cryptography (secret key)
+         │
+         └────────────── Response: JWT Token ───────────────┘ this resoponce goes to user
+
+🧠 Explanation:
+
+Client sends username & password to /login.
+The server validates credentials and generates a JWT token.
+Token is signed using HS256 (symmetric key encryption).
+The client receives the token and uses it for protected routes (like /products).
+
+
+
+
+// for distributed system microservices
+See the image name distributed
+so in this probelm we have to maintain the jwt toekn for each service 
+if we cange the secre key in one sevice then we have chnage the key in every service
+
+//to solve this probelm we use diifent type of algorithm RSA(Rivest-Shamir-Adleman)256
+image name RSAdistributed
+how authentication and authorization work in a distributed system using RSA encryption and JWT tokens
+
+🧩 Example Scenario
+Let’s say you have an e-commerce system with these services:
+Auth Service → handles login, JWT generation, and RSA key pair
+Catalog Service → shows product data
+Billing Service → handles payments
+Client → user’s app or frontend
+
+🔐 Step-by-step Example
+1. Login and Token Generation
+The client sends credentials (email/password) to the Auth Service:
+The Auth Service verifies the credentials from its database.
+It then signs a JWT (JSON Web Token) using its RSA private key.
+The signed token is returned to the client:
+
+2. Accessing Other Services
+The client includes the JWT in requests:
+The Catalog Service receives the request and needs to verify the token.
+Since it doesn’t have the private key, it fetches the public key from the Auth Service’s JWKS (JSON Web Key Set) endpoint:
+Using this public key, the Catalog Service verifies the token’s signature.
+
+3. Performing Secure Actions
+Similarly, the Billing Service verifies the JWT before allowing a /charge request.
+The services communicate with their respective databases, and the Billing Service may also use a cache to improve performance.
+
+
+🔑 In Summary
+
+Auth Service → owns the RSA key pair and issues JWTs
+Other Services → only need the public key to verify JWTs (no need for the private key)
+RSA ensures tokens are verifiable but not forgeable
+JWT allows stateless authentication across distributed services
+
+//now chcek the image for more clear 
