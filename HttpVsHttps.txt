@@ -20,7 +20,7 @@ Cookies (session tokens)
 HTTPS (HyperText Transfer Protocol Secure) is just HTTP + encryption (via TLS/SSL).
 Uses TLS (Transport Layer Security) or the older SSL for encryption.
 Runs on port 443 by default.
-Ensures:
+Ensures: 
 Encryption → Nobody can read your data (confidentiality).
 Authentication → Confirms you’re talking to the real website (via certificates).
 Integrity → Data cannot be modified in transit.
@@ -63,7 +63,7 @@ Example:[Encrypted Data: cannot be read without key]
 
 🔍 4. Key Differences: HTTP vs HTTPS
 | Feature           | HTTP (Unsecure) | HTTPS (Secure)                  |
-| ----------------- | --------------- | ------------------------------- |
+| ----------------- | --------------- | ------------------  ------------- |
 | Port              | 80              | 443                             |
 | Encryption        | ❌ None          | ✅ TLS/SSL                       |
 | Data Protection   | Plain text      | Encrypted                       |

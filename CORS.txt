@@ -1,0 +1,149 @@
+CROS -> cross-origin Resource Sharing
+
+🌐 What is CORS?
+
+CORS (Cross-Origin Resource Sharing) is a browser security feature that controls how a web 
+page can request resources (like APIs, fonts, or images) from a different domain (origin).
+
+🔹 Same-Origin Policy (SOP)
+By default, browsers enforce Same-Origin Policy — meaning:
+A web page can only make requests to the same domain, protocol, and port from which it was loaded.
+
+Example:
+✅ Allowed:
+Frontend → https://example.com → API on https://example.com/api
+❌ Blocked by default:
+Frontend → https://myapp.com → API on https://api.another.com
+That’s where CORS comes in.
+
+
+⚙️ How CORS Works
+When the browser detects a cross-origin request, it automatically adds CORS headers and
+sends a special preflight request before the actual one.
+
+
+🧭 Flow:
+Browser sends an OPTIONS request (called a preflight request).
+The server replies with CORS headers saying whether the origin is allowed.
+If approved, the browser proceeds with the actual request (GET, POST, etc).
+
+
+
+| Header                             | Sent By | Purpose                                                    |
+| ---------------------------------- | ------- | ---------------------------------------------------------- |
+| `Origin`                           | Browser | The domain making the request                              |
+| `Access-Control-Allow-Origin`      | Server  | Specifies which origin(s) are allowed                      |
+| `Access-Control-Allow-Methods`     | Server  | Allowed HTTP methods (GET, POST, etc.)                     |
+| `Access-Control-Allow-Headers`     | Server  | Allowed custom headers (Authorization, Content-Type, etc.) |
+| `Access-Control-Allow-Credentials` | Server  | Allows cookies or credentials                              |
+| `Access-Control-Expose-Headers`    | Server  | Exposes additional headers to browser                      |
+
+
+
+Access-Control-Allow-Origin: *
+✅ Works for public APIs.
+❌ But cookies or credentials cannot be sent when * is used.
+
+
+
+🍪 CORS with Credentials (cookies, tokens)
+If you want to send cookies or Authorization headers, you must:
+Specify a specific origin (not *)
+Set credentials: true on the server
+Set credentials: 'include' on the frontend
+
+
+Server (Express)
+app.use(
+  cors({
+    origin: "https://myfrontend.com",  // exact domain
+    credentials: true,                 // allow cookies
+  })
+);
+
+Frontend (Fetch API)
+fetch("https://api.mybackend.com/data", {
+  method: "GET",
+  credentials: "include" // send cookies or session tokens
+});
+
+
+| Problem                                                  | Cause                                  | Fix                                                             |
+| -------------------------------------------------------- | -------------------------------------- | --------------------------------------------------------------- |
+| ❌ `CORS policy: No 'Access-Control-Allow-Origin' header` | Server didn’t send CORS headers        | Enable CORS in backend                                          |
+| ❌ Cookies not sent                                       | Using `*` for origin                   | Use exact domain & set `credentials: true`                      |
+| ❌ `Request header field authorization is not allowed`    | Server didn’t whitelist custom headers | Add `Access-Control-Allow-Headers: Authorization, Content-Type` |
+| ❌ Preflight fails (OPTIONS request blocked)              | Server doesn’t handle OPTIONS requests | Allow OPTIONS method in backend                                 |
+| ❌ Frontend & backend using different ports locally       | Treated as different origins           | Enable CORS for `http://localhost:3000` etc.                    |
+
+
+
+
+| Concept                           | Description                                                |
+| --------------------------------- | ---------------------------------------------------------- |
+| **CORS**                          | Mechanism to allow cross-origin requests                   |
+| **Preflight (OPTIONS)**           | Browser check before actual request                        |
+| **`Access-Control-Allow-Origin`** | Must specify the allowed origin (not `*` if cookies used)  |
+| **Credentials (`include`)**       | Needed for cookies or tokens                               |
+| **Common Issue**                  | CORS errors occur when backend doesn’t send proper headers |
+
+
+
+
+
+
+
+        🌐 Frontend (Browser)
+       https://myfrontend.com
+                 |
+                 | (1) Sends Preflight Request (OPTIONS)
+                 |--------------------------------------------->
+                 |   Headers:
+                 |   Origin: https://myfrontend.com
+                 |   Access-Control-Request-Method: POST
+                 |   Access-Control-Request-Headers: Authorization
+                 
+                 |
+                 | (2) Server Response (CORS Check)
+                 |<---------------------------------------------
+                 |   Headers:
+                 |   Access-Control-Allow-Origin: https://myfrontend.com
+                 |   Access-Control-Allow-Methods: GET, POST, PUT
+                 |   Access-Control-Allow-Headers: Authorization, Content-Type
+                 |   Access-Control-Allow-Credentials: true
+                 
+                 |
+                 | (3) Actual Request (e.g., POST /login)
+                 |--------------------------------------------->
+                 |   Headers:
+                 |   Origin: https://myfrontend.com
+                 |   Cookie / Token (if credentials: 'include')
+                 
+                 |
+                 | (4) Actual Response
+                 |<---------------------------------------------
+                 |   Headers:
+                 |   Access-Control-Allow-Origin: https://myfrontend.com
+                 |   Access-Control-Allow-Credentials: true
+                 |   Body: { "message": "Login successful" }
+                 
+        ✅ Browser accepts response
+
+
+
+| Step | Action                                | Description                                                    |
+| ---- | ------------------------------------- | -------------------------------------------------------------- |
+| 1    | **Preflight Request (OPTIONS)**       | Browser checks if the server allows this cross-origin request. |
+| 2    | **Server Responds with CORS Headers** | Server grants permission if origin and method are allowed.     |
+| 3    | **Actual Request (GET/POST)**         | Browser sends the real API call with cookies or tokens.        |
+| 4    | **Response Returned**                 | Browser processes response only if allowed by CORS policy.     |
+
+
+
+💡 Remember:
+
+Access-Control-Allow-Origin: * ❌ cannot be used when sending cookies or credentials.
+Must use the exact origin and set credentials: true on both sides.
+
+
+//server to server call will not get cors error like postman
