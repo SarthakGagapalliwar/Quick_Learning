@@ -1,0 +1,105 @@
+What is virtualization?
+Virtualization is a technology that allows you to create multiple virtual versions of
+computer resources — such as servers, storage, or operating systems — on a single physical
+machine. It works by using special software called a **hypervisor**, 
+which divides the hardware into separate virtual environments, each acting like a real 
+computer. This helps make better use of hardware, reduces costs, and allows easy testing
+backup, and management of different systems on the same device.
+
+
+hypervisor=> it us software that creates and runs virtule machine (VMs) like oracle VirtualBook
+1.Virtual box share hardware resources from Host OS
+2.Separate set of virtual CPU, RAM, storage etc
+3.VMS are fully isolated (independent of hosted OS) 
+
+Benefits of VMS
+• We don't need new resources to use different OS
+• No risk of any issues with your primary OS
+• Testing any app on different OS
+
+Types of hypervisor
+Type1(Bare Metal)=>Used by Cloud Providers and Enterprise Servers.
+Type2(hosted)=> in owr own machine like laptop 
+
+Virtualization Use Case
+• Cheap
+• Reduces
+    workload
+    Space
+    Energy
+• Easy backup using snapshot
+• Easy recovery
+
+
+Cloud Computing
+=>on-demand delivery of IT resources over the Internet with pay-as-you-go pricing..
+Accees computing resources (like servers, storage, databases, and software) over the internet, 
+rather than owning and maintaining physical hardware. 
+example
+• Amazon Web Services (AWS)
+• Microsoft Azure
+• Google Cloud Platform (GCP)
+
+Types of Cloud Computing
+1.Infrastructure as a Service (IaaS)
+=> IaaS contains the basic building blocks for cloud IT. It typically provides
+access to networking features, computers (virtual or on dedicated
+hardware), and data storage space. IaaS gives you the highest level of
+flexibility and management control over your IT resources. It is most
+similar to the existing IT resources with which many IT departments and
+developers are familiar.  
+
+simple terms=>You get the empty shop — you bring your own ice cream machines, ingredients, and staff.
+➡️ Example: AWS EC2, Google Cloud Compute.
+
+2.Platform as a Service (PaaS)
+=> PaaS removes the need for you to manage underlying infrastructure
+(usually hardware and operating systems), and allows you to focus on
+the deployment and management of your applications. This helps you
+be more efficient as you don't need to worry about resource
+procurement, capacity planning, software maintenance, patching, or any
+of the other undifferentiated heavy lifting involved in running your
+application.
+
+The shop already has machines and tools — you just make and sell your ice cream.
+➡️ Example: Google App Engine, Heroku.
+
+3.Software as a Service (SaaS)
+=> SaaS provides you with a complete product that is run and managed by
+the service provider. In most cases, people referring to SaaS are referring
+to end-user applications (such as web-based email). With a SaaS
+offering, you don't have to think about how the service is maintained or
+how the underlying infrastructure is managed. You only need to think
+about how you will use that particular software.
+
+You don’t make anything — you just buy and enjoy the ice cream that’s already prepared.
+➡️ Example: Gmail, Google Docs.
+
+
+
+🧱 IaaS = You build everything.
+⚙️ PaaS = You build on provided tools.
+🍨 SaaS = You just use what’s already made.
+
+
+
+
+Different Types of Cloud Deployments:
+• Public Cloud: A shared cloud environment where multiple
+users can access services over the internet, like AWS or Azure.
+
+• Private Cloud: A dedicated cloud environment for one
+organization, offering more control and privacy.
+ 
+•Hybrid Cloud: A mix of public and private clouds, allowing
+data and applications to move between them for flexibility.
+
+FEW FEATURES COMMONLY OFFERED BY CLOUD PROVIDERS:
+COMPUTE SERVICES
+STORAGE SERVICES
+DATABASE SERVICES
+NETWORKING SERVICES
+CONTAINER SERVICES
+SERVERLESS COMPUTING
+MACHINE LEARNING SERVICES
+IDENTITY AND ACCESS MANAGEMENT (IAM)
