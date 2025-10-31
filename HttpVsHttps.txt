@@ -271,3 +271,19 @@ Client generates key → encrypts with Server Public Key → Server decrypts
 
 ECDHE:
 Client & Server exchange public parts → both derive same key via math
+
+
+
+HTTP => The HyperText Transfer Protocol is an application-level protocol for distibutted, collaboratve,
+hypermedia informatin system. Is is generic, stateless, protocol which can be used for many tasks beyond
+its use for hypertest, such as name servers and distibutted object management system, through extension
+of its request method, error codes and headers. A feature of http is the typing and negotiation of
+data representaion, allowing systems to be build independent of the data begin transferred.
+ 
+
+status code
+100-199 => Informational responce
+200-299 => sucessful responce
+300-399 => Redirection messages
+400-499 => Client error responce
+500-599 => Server error responce
