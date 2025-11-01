@@ -1,0 +1,306 @@
+They both are the commmution between frontend and backend
+  
+REST => Representational State Transfer (convention) state of rules define
+
+
+
+HTTPS Methods
+
+GET /books => to get the data 
+GET /books/:id => particuler book
+POST /books => create book 
+PUT/books/:id => to upadate
+PATCH/books/:id => to upadate
+DELETE/books/:id => to DELETE
+
+
+In REST this give over data means get overFetching
+
+
+To solve this problme use GraphQL
+
+GraphQL
+🧩 Key GraphQL Concepts
+
+Let’s now understand your three main
+1️⃣ Query
+Used to fetch (read) data.
+Equivalent to REST’s GET request.
+
+query {
+  books {
+    id
+    title
+  }
+}
+
+This calls a resolver that fetches all books.
+
+2️⃣ Mutation
+Used to create, update, or delete data.
+Equivalent to REST’s POST, PUT, DELETE.
+
+mutation {
+  createBook(title: "The Alchemist", author: "Paulo Coelho") {
+    id
+    title
+  }
+}
+
+3️⃣ Resolver
+Resolver = function that actually handles the logic behind a field.
+It connects GraphQL queries/mutations to your database or backend logic.
+Example in JavaScript (Node.js + Apollo Server):
+
+const resolvers = {
+  Query: {
+    books: () => Book.find(), // Fetch all books
+    book: (_, { id }) => Book.findById(id),
+  },
+  Mutation: {
+    createBook: (_, { title, author }) => Book.create({ title, author }),
+  }
+};
+
+Each resolver corresponds to one field in your GraphQL schema.
+
+
+📘 GraphQL Schema Example
+
+The schema defines what data exists and how clients can access it:
+type Book {
+  id: ID!
+  title: String!
+  author: String!
+}
+
+type Query {
+  books: [Book]
+  book(id: ID!): Book
+}
+
+type Mutation {
+  createBook(title: String!, author: String!): Book
+}
+
+🛠️ How It Works Together
+
+Frontend sends a query (e.g., get a book title and author name).
+GraphQL server receives it at /graphql.
+Resolvers execute and fetch data from MongoDB, Prisma, etc.
+GraphQL server returns exactly the requested fields.
+
+
+⚡ Advantages of GraphQL
+
+✅ Fetch exactly what you need (no overfetching/underfetching)
+✅ Single endpoint for all operations
+✅ Strongly typed schema — easy to understand and validate
+✅ Works great with modern frontends (React, Next.js, etc.)
+✅ Supports real-time updates using Subscriptions
+
+
+
+Both REST and GraphQL are communication methods between frontend and backend.
+They define how the client (like React frontend) requests data from the server (Node.js, Express, etc.).
+
+
+| Feature                          | REST                                             | GraphQL                                           |
+| -------------------------------- | ------------------------------------------------ | ------------------------------------------------- |
+| **Type**                         | Architectural style (set of conventions)         | Query language for APIs                           |
+| **Data Fetching**                | Multiple endpoints (e.g. `/books`, `/books/:id`) | Single endpoint (usually `/graphql`)              |
+| **Overfetching / Underfetching** | Common (you get too much or too little data)     | Solved (you get *exactly* what you request)       |
+| **HTTP Methods**                 | GET, POST, PUT, PATCH, DELETE                    | Only uses POST (usually)                          |
+| **Versioning**                   | Often needs new endpoints like `/v2/books`       | No versioning needed — you just modify the schema |
+| **Performance**                  | More network requests                            | One request can fetch all needed data             |
+
+
+
+⚙️ RPC — Remote Procedure Call
+
+🔹 What It Means
+RPC stands for Remote Procedure Call —
+it allows a program to call a function on another machine (remote server) as if it were a local function.
+
+So instead of sending an HTTP request like in REST or GraphQL,
+you call a function (procedure) that runs remotely.
+ 
+🧠 Simple Example
+REST Style
+POST /calculate/add
+Body: { "a": 5, "b": 6 }
+
+RPC Style
+add(5, 6)
+
+Here:
+add is a function name (called “procedure” in RPC).
+It’s executed remotely — maybe on another server or microservice.
+The client just gets the result, like calling a normal local function.
+So RPC hides the complexity of networking.
+
+🧩 Key Idea
+
+RPC = “Call a function remotely as if it’s local.”
+
+Your program does not worry about:
+Where the server is,
+How the data travels,
+What protocol is used.
+It just calls a function, and RPC handles the communication.
+
+🔄 Example (Real Life)
+Suppose you have a microservice architecture:
+user-service handles user data.
+payment-service handles transactions.
+
+When user-service wants to check a user’s payment history:
+
+REST:
+GET /payments/user/123
+
+RPC:
+getUserPayments(123)
+
+✅ Internally, RPC system (like gRPC) sends this request to the payment-service and returns the result.
+
+
+💡 When to Use RPC
+
+Use RPC (especially gRPC) when:
+You’re building a distributed system (like microservices).
+Services need to talk to each other quickly.
+You want low latency and strong typing.
+REST or GraphQL overhead is too high (for internal backend use).
+
+✅ RPC (Remote Procedure Call) →
+You call a remote function directly, instead of sending a REST/GraphQL request.
+
+✅ Used in microservices, distributed systems, and backend-to-backend communication.
+
+
+
+
+🧰 Common RPC Frameworks
+| Framework              | Language Support | Description                                             |
+| ---------------------- | ---------------- | ------------------------------------------------------- |
+| **gRPC**               | Multi-language   | Uses Protocol Buffers (binary format), fast & type-safe |
+| **Thrift**             | Multi-language   | Developed by Facebook, similar to gRPC                  |
+| **JSON-RPC / XML-RPC** | Any              | Simple text-based RPC using JSON or XML over HTTP       |
+
+
+
+| Feature                | REST                     | GraphQL                | RPC                                  |
+| ---------------------- | ------------------------ | ---------------------- | ------------------------------------ |
+| **Communication Type** | Resource-based           | Query language         | Function-based                       |
+| **Data Format**        | JSON (usually)           | JSON                   | Binary / JSON / ProtoBuf             |
+| **Endpoint**           | `/books`, `/users`       | `/graphql`             | `/Add`, `/UserService/GetUser`       |
+| **Structure**          | Resources (GET, POST...) | Schema-based           | Procedures (functions)               |
+| **Used In**            | Web APIs                 | Web APIs               | Microservices, backend communication |
+| **Speed**              | Slower (HTTP text-based) | Medium                 | Very fast (binary)                   |
+| **Ideal For**          | Public APIs              | Flexible data fetching | Internal service-to-service calls    |
+
+
+
+
+
+⚙️ Problem with JSON
+
+When a server sends data to a client, here’s what happens under the hood:
+The server first fetches data from the database.
+const products = db_data; // data stored in server memory (RAM)
+This data exists as a JavaScript object, which lives in memory.
+You cannot send JavaScript objects directly over the network,
+because the network only understands binary or text data.
+So, before sending it, the object is converted to a JSON string
+using JSON.stringify() — this process is called serialization.
+
+const jsonData = JSON.stringify(products);
+
+On the client side, the data is received as a JSON string and then converted back
+into a JavaScript object using JSON.parse().
+This is called deserialization.
+
+In Express.js, when you call:
+res.json(data);
+
+Express automatically performs both steps:
+Converts (serialize) your object into a JSON string.
+Sets the proper headers and sends it to the network.
+
+🧠 But What’s the Problem?
+
+✅ JSON is easy to use and human-readable,
+❌ but it has performance drawbacks:
+
+Serialization & Deserialization require CPU processing,
+which can make it slow for large data.
+
+Data duplication:
+For example:
+[
+  { "name": "John", "id": 1 },
+  { "name": "John", "id": 2 }
+]
+The "name" key is repeated many times, increasing the data size.
+As the data size grows, it causes:
+Higher network latency (slower transfer),
+More bandwidth usage.
+
+🚀 Solution — gRPC (Google Remote Procedure Call)
+
+To solve these JSON performance issues, we use gRPC,
+which is a high-performance RPC framework.
+
+🔹 How it Works
+
+Instead of JSON, gRPC uses Protocol Buffers (ProtoBuf) for data serialization.
+ProtoBuf encodes data in a binary format, not text.
+This makes it smaller, faster, and more efficient.
+
+🧩 Advantages of gRPC
+| Feature                | Description                                                   |
+| ---------------------- | ------------------------------------------------------------- |
+| **Binary Protocol**    | Uses ProtoBuf — compact and efficient                         |
+| **Fast Serialization** | Binary format means less CPU time                             |
+| **Low Latency**        | Data transfers quickly over the network                       |
+| **High Throughput**    | Handles many requests efficiently                             |
+| **Strongly Typed**     | Each field has a fixed data type (e.g., `int32`, `string`)    |
+| **HTTP/2 Support**     | gRPC works on HTTP/2 — supports multiplexing, streaming, etc. |
+
+
+Example: ProtoBuf Encoding
+{
+  "name": "Alice",
+  "age": 21
+}
+In Protocol Buffers, it’s defined like this:
+message User {
+  string name = 1;
+  int32 age = 2;
+}
+
+➡️ name = 1 and age = 2 are field numbers,
+used internally to represent data in binary format.
+
+So instead of repeating "name" and "age" in every record,
+ProtoBuf just sends compact binary codes like 1: "Alice", 2: 21.
+
+This dramatically reduces data size and improves speed.
+| Concept           | JSON                    | gRPC (ProtoBuf)                       |
+| ----------------- | ----------------------- | ------------------------------------- |
+| **Data Format**   | Text (string)           | Binary                                |
+| **Serialization** | `JSON.stringify()`      | ProtoBuf serialization                |
+| **Speed**         | Slower (CPU heavy)      | Much faster                           |
+| **Size**          | Larger (duplicate keys) | Smaller (compact binary)              |
+| **Type Checking** | Dynamic                 | Strongly typed                        |
+| **Transport**     | HTTP/1.1                | HTTP/2                                |
+| **Used For**      | Web APIs                | Microservices, internal communication |
+
+
+✅ In short:
+
+JSON is easy, but slower and heavier.
+
+gRPC with ProtoBuf is faster, smaller, and more efficient —
+perfect for microservices and high-performance systems.
