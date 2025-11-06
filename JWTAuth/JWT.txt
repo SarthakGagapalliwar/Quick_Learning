@@ -167,6 +167,62 @@ Improves overall security while maintaining a smooth user experience, since user
 
 
 
+💬 Your Question
+
+“When the access token expires and a new access token is generated, does a new refresh token also get generated every time?”
+
+✅ Short Answer
+
+
+..
+👉 Yes — if you’re using refresh token rotation,
+then every time you issue a new access token, you also issue a new refresh token and invalidate (revoke) the old one.
+
+But — if you’re using the simple refresh token method (no rotation),
+then the same refresh token continues to be used until it expires.
+
+🔄 Two Possible Approaches
+1️⃣ Simple Refresh Flow (no rotation)
+
+Access token expires → client sends refresh token → server issues new access token only
+
+The same refresh token remains valid until its expiry (e.g., 30 days)
+
+🧠 Easy to implement, but less secure:
+If someone steals the refresh token, they can keep getting new access tokens until it expires.
+
+
+2️⃣ Refresh Token Rotation (recommended)
+
+Access token expires → client sends refresh token
+
+Server checks token validity in DB
+
+Server:
+✅ Issues new access token
+✅ Issues new refresh token
+❌ Marks old refresh token as revoked/used
+
+💪 Benefit:
+If an attacker steals an old refresh token, it won’t work anymore, because it’s already invalidated.
+
+
+
+| Step | Action                                      | Result                              |
+| ---- | ------------------------------------------- | ----------------------------------- |
+| 1    | User logs in                                | Access (15 min) + Refresh (30 days) |
+| 2    | After 15 min, access token expires          | Client sends refresh token          |
+| 3    | Server verifies refresh token               | Issues new access + new refresh     |
+| 4    | Old refresh token marked revoked            | Prevents reuse                      |
+| 5    | Repeat until refresh token expiry or logout | Keeps session alive                 |
+
+
+| Case           | New Access Token | New Refresh Token | Old Refresh Token |
+| -------------- | ---------------- | ----------------- | ----------------- |
+| Simple Refresh | ✅                | ❌                 | Still valid       |
+| Rotation       | ✅                | ✅                 | ❌ Revoked         |
+
+
 
 seesrion is Stateful ;
 
