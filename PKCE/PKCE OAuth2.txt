@@ -1,0 +1,179 @@
+OAuth 2.0 is a protocol that lets an app access a user’s data without asking for their password — by using access tokens.
+
+⚙️ Example Scenario
+Let’s say you want to log in to a third-party app (MyNotes) using your Google account.
+
+
+🔁 OAuth 2.0 Flow (Authorization Code Grant — most common)
+
+User → MyNotes App:
+You click “Login with Google” on MyNotes.
+
+MyNotes → Google (Authorization Request):
+MyNotes redirects you to Google’s authorization server with a request like:
+
+https://accounts.google.com/o/oauth2/auth?
+  client_id=MYNOTES_CLIENT_ID
+  &redirect_uri=https://mynotes.com/callback
+  &response_type=code
+  &scope=email profile
+
+User → Google:
+You sign in and grant permission to share your profile and email.
+
+Google → MyNotes:
+Google redirects back to MyNotes with an authorization code:
+
+https://mynotes.com/callback?code=ABC123
+
+MyNotes → Google (Token Exchange):
+MyNotes sends the code to Google’s token endpoint to get an access token (and possibly a refresh token):
+
+POST https://oauth2.googleapis.com/token
+{
+  code: "ABC123",
+  client_id: "MYNOTES_CLIENT_ID",
+  client_secret: "MYNOTES_SECRET",
+  redirect_uri: "https://mynotes.com/callback",
+  grant_type: "authorization_code"
+}
+
+Google → MyNotes:
+
+
+{
+  "access_token": "ya29.ABCxyz",
+  "expires_in": 3600,
+  "refresh_token": "1//09abcd",
+  "token_type": "Bearer"
+}
+
+MyNotes → Google API:
+Now MyNotes can access your profile:
+
+
+GET https://www.googleapis.com/userinfo
+Authorization: Bearer ya29.ABCxyz
+
+✅ Done!
+MyNotes gets your info and logs you in — without ever seeing your password.
+
+
+//for revision
+
+https://www.youtube.com/watch?v=hpryVn8LT4E   
+
+
+
+🔐 What is PKCE?
+
+PKCE (pronounced “pixy”) = Proof Key for Code Exchange
+
+
+It’s an extra security layer added on top of the OAuth 2.0 Authorization Code Flow
+— mainly for public clients (like mobile apps, SPAs, or frontend-only apps)
+where you can’t safely store a client secret.
+
+
+
+🧠 Why PKCE is Needed
+In the normal OAuth Authorization Code flow, the app gets an authorization_code,
+then exchanges it (with client secret) for an access token.
+
+PKCE is not a form of client authentication, and PKCE is not a replacement for a client secret or other client
+authentication. PKCE is recommended even if a client is using a client secret or other form of client authentication
+like private_key_jwt.
+
+👉 Problem:
+In mobile or browser-based apps, anyone can see your code —
+so if a hacker intercepts the authorization code,
+they can also send it to the token endpoint and get the access token!
+
+👉 Solution:
+Use PKCE, which adds a one-time secret created by the client —
+this proves that the app that started the login is the one finishing it.
+
+
+⚙️ PKCE Flow — Step-by-Step Example
+Let’s use “MyNotes” app logging in with Google (OAuth provider).
+
+1️⃣ Client creates a random string (Code Verifier)
+Before starting the login, the client generates a random string:
+
+code_verifier = "SarthakSecureRandomString123!"
+
+
+2️⃣ Client creates a hash of it (Code Challenge)
+Then it makes a SHA256 hash of that verifier and encodes it:
+
+code_challenge = "E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM"
+
+
+3️⃣ Client starts OAuth flow
+Redirects user to Google’s auth page with this challenge:
+https://accounts.google.com/o/oauth2/auth?
+  client_id=MYNOTES_CLIENT_ID
+  &redirect_uri=https://mynotes.com/callback
+  &response_type=code
+  &scope=openid email
+  &code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM
+  &code_challenge_method=S256
+
+
+4️⃣ User logs in and approves
+Google redirects back with:
+https://mynotes.com/callback?code=ABC123
+
+5️⃣ Client exchanges code for token
+Now MyNotes sends the authorization_code plus the original code_verifier to the token endpoint:
+POST https://oauth2.googleapis.com/token
+{
+   grant_type: "authorization_code",
+   code: "ABC123",
+   redirect_uri: "https://mynotes.com/callback",
+   client_id: "MYNOTES_CLIENT_ID",
+   code_verifier: "SarthakSecureRandomString123!"
+}
+
+6️⃣ Server verifies PKCE
+Google takes the received code_verifier
+Computes SHA256 and Base64URL encodes it
+Compares with the original code_challenge stored during Step 3
+✅ If they match → access token issued
+❌ If not → rejected
+
+
+🕓 When to Use PKCE
+| App Type                            | Should Use PKCE? | Why                                |
+| ----------------------------------- | ---------------- | ---------------------------------- |
+| Mobile apps (iOS, Android)          | ✅ Yes            | Can’t safely store client secrets  |
+| Single Page Apps (React, Next.js)   | ✅ Yes            | Runs in browser, exposed to users  |
+| Server-side web apps (Node.js, PHP) | Optional         | Server can keep client secret safe |
+
+🧩 Summary
+| Term               | Description                                                   |
+| ------------------ | ------------------------------------------------------------- |
+| **code_verifier**  | Random string created by the app                              |
+| **code_challenge** | Hashed form of verifier sent in Step 1                        |
+| **PKCE**           | Prevents attackers from exchanging stolen authorization codes |
+| **Used in**        | Public clients — SPAs, mobile apps                            |
+| **Hash method**    | Usually `S256` (SHA256)                                       |
+
+
+
+
+
+
+see the flow in image
+
+The user clicks Login within the application.
+Auth0’s SDK creates a cryptographically-random code_verifier and from this generates a code_challenge.
+Auth0’s SDK redirects the user to the Auth0 Authorization Server (/authorize endpoint) along with the code_challenge.
+Your Auth0 Authorization Server redirects the user to the login and authorization prompt.
+The user authenticates using one of the configured login options and may see a consent page listing the permissions Auth0 will give to the application.
+Your Auth0 Authorization Server stores the code_challenge and redirects the user back to the application with an authorization code, which is good for one use.
+Auth0’s SDK sends this code and the code_verifier (created in step 2) to the Auth0 Authorization Server (/oauth/token endpoint).
+Your Auth0 Authorization Server verifies the code_challenge and code_verifier.
+Your Auth0 Authorization Server responds with an ID token and access token (and optionally, a refresh token).
+Your application can use the access token to call an API to access information about the user.
+The API responds with requested data.
