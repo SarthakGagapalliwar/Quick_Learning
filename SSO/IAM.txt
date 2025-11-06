@@ -1,0 +1,97 @@
+IAM => Identtity and Access Management -> it's both
+
+Who gets in? What they can do..
+
+
+🧠 IAM — Identity and Access Management
+A system that helps organisations manage who can access what.
+
+In short:
+Identity = Who gets in
+Access Management = What they can do
+
+
+| Function              | Related Concept            | What It Does                                                   |
+| --------------------- | -------------------------- | -------------------------------------------------------------- |
+| **Identity**          | **AuthN (Authentication)** | Verifies *who you are* — login, user provisioning, credentials |
+| **Access Management** | **AuthZ (Authorization)**  | Controls *what you can do* — roles, policies, permissions      |
+
+
+
+System that helps orginations mange Who can access What
+⚙️ How It Works (Example)
+
+When you log in to GitHub using Google:
+You click “Sign in with Google.”
+GitHub redirects you to Google (your IdP).
+You log in to Google (enter password, maybe 2FA).
+Google verifies your credentials (✅ AuthN).
+Google sends a secure token (SAML or OpenID Connect) back to GitHub.
+GitHub trusts Google’s token and logs you in.
+
+👉 You never share your Google password with GitHub —
+GitHub trusts Google to handle your identity safely.
+
+
+🪪 Identity Provider (IdP)
+The IdP handles authentication — the “Who are you?” part.
+
+What IdP does:
+Verifies your credentials (password, MFA, etc.)
+Issues a secure token (like SAML or OpenID Connect) if valid
+Sends that token to the service provider (SP)
+Example IdPs: Google, Okta, Azure AD, Ping Identity, Auth0
+
+🧾 Service Provider (SP)
+
+The SP (like GitHub, AWS, Salesforce) accepts that token from the IdP.
+If valid, it lets you in — no extra password needed.
+
+Once you’re inside, Authorization (AuthZ) takes over.
+
+
+🧱 Authorization (AuthZ) — “What you can do”
+After login, IAM defines your boundaries — what actions or data you’re allowed to access.
+
+Example:
+
+In a hospital system, a nurse can view patient data
+An admin can add or delete users
+A developer can only modify backend systems
+IAM uses roles, groups, and attributes to enforce these rules.
+
+
+
+⚖️ Authorization Models
+
+| Type                                      | Meaning                                                           | Example                                                                |
+| ----------------------------------------- | ----------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| **RBAC (Role-Based Access Control)**      | Access based on job role                                          | Admins can delete users; Viewers can only read                         |
+| **ABAC (Attribute-Based Access Control)** | Access based on attributes (department, time, location, etc.)     | Allow access only if `department = "Cardiology"`                       |
+| **PBAC / Policy-Based Access Control**    | Rules defined as policies (evaluated by decision engine like OPA) | “Allow access to `/records` only if user.role = doctor and time < 6PM” |
+
+
+🧭 Real-World Analogy
+Think of IAM like a security system for an organisation:
+| Step                 | Who handles it                 | What it means           |
+| -------------------- | ------------------------------ | ----------------------- |
+| **Check ID**         | 🪪 *Identity Provider (AuthN)* | Verifies who you are    |
+| **Check Permission** | 🧾 *Access Management (AuthZ)* | Decides what you can do |
+
+☁️ Examples of IAM Systems
+| Platform                            | Scope                                                   |
+| ----------------------------------- | ------------------------------------------------------- |
+| **AWS IAM**                         | Manages access to AWS resources (S3, EC2, Lambda, etc.) |
+| **Okta / Azure AD / Ping Identity** | Cross-application identity & access across cloud + SaaS |
+| **Google Identity / Auth0**         | Web & mobile app authentication                         |
+| **Keycloak**                        | Open-source IAM for enterprises and developers          |
+
+
+
+| Concept                    | Meaning                                              |
+| -------------------------- | ---------------------------------------------------- |
+| **IAM**                    | Manages who can access what                          |
+| **AuthN (Authentication)** | “Who are you?” — handled by IdP (e.g., Google, Okta) |
+| **AuthZ (Authorization)**  | “What can you do?” — handled via roles/policies      |
+| **SAML / OIDC**            | Tokens used to prove identity                        |
+| **RBAC / ABAC / PBAC**     | Methods to control permissions                       |

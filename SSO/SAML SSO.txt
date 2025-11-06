@@ -253,3 +253,56 @@ Perfect 👍 — here’s a clear, short, and developer-friendly comparison of S
 | Employee logging into **Salesforce** via company Okta | 🏢 **SAML**           | Classic enterprise SSO            |
 | Mobile app wants access to user’s Google Drive files  | 🔑 **OAuth 2.0**      | Authorization to access APIs      |
 | Website “Sign in with Google” (no password)           | 🌐 **OpenID Connect** | Login (authentication) via Google |
+
+
+
+
+🔐 SCIM (System for Cross-domain Identity Management)
+
+SCIM is a standard protocol used to automate user management —
+like creating, updating, or deleting user accounts across different apps and systems.
+
+🧠 In simple words:
+
+SCIM helps automatically sync users between your Identity 
+Provider (IdP) (like Okta or Azure AD) and your apps (like Slack, Zoom, or Salesforce).
+
+⚙️ Example:
+
+When a new employee joins your company:
+The IdP (e.g., Okta) sends a SCIM request:
+POST /Users
+{
+  "userName": "john@company.com",
+  "name": { "givenName": "John", "familyName": "Doe" }
+}
+The app (e.g., Slack) automatically creates that user account.
+
+When the employee leaves, SCIM automatically deletes or disables it.
+
+
+📦 What It Does
+
+✅ Create users
+✅ Update user info (role, department, etc.)
+✅ Deactivate or delete users
+✅ Sync group memberships
+
+
+🔧 Works With
+IdPs: Okta, Azure AD, Ping Identity, Google Workspace
+Apps: Slack, Zoom, GitHub, Salesforce, etc.
+
+
+
+| Concept        | Meaning                                                |
+| -------------- | ------------------------------------------------------ |
+| **SCIM**       | Protocol to sync user accounts between systems         |
+| **Stands for** | *System for Cross-domain Identity Management*          |
+| **Used for**   | Auto-provisioning & deprovisioning users               |
+| **Benefit**    | No manual user management — saves time & avoids errors |
+
+
+👉 In short:
+SAML = login (SSO)
+SCIM = manage users (provisioning)
