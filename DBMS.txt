@@ -1,0 +1,112 @@
+🔑 1. Primary Key
+A primary key is a unique identifier for each record in a table. It ensures that 
+no two rows have the same value and that the value is never NULL. 
+For example, in a “Students” table, the student_id column could be the primary
+key because every student has a unique ID.
+
+
+🧩 2. Candidate Key
+A candidate key is any column (or set of columns) that can uniquely identify a row in a table. 
+Out of all candidate keys, one is chosen as the primary key. 
+For example, both email and student_id might be candidate keys for a “Students” table.
+
+
+🗝️ 3. Alternate Key
+An alternate key is a candidate key that was not selected as the primary key.
+It can still uniquely identify records but is not used as the main identifier.
+For instance, if student_id is the primary key, then email becomes the alternate key.
+
+
+🤝 4. Foreign Key
+A foreign key is a field that links one table to another. It references the primary key 
+of another table to maintain referential integrity. For example, in an “Orders” table, 
+customer_id might be a foreign key referencing the “Customers” table.
+
+
+🧮 5. Composite Key
+A composite key is formed by combining two or more columns to create a unique identifier 
+when a single column cannot uniquely identify a record. For example, in a “Course_Enrollment” 
+table, a combination of student_id and course_id can act as a composite key.
+
+
+🚫 6. Super Key
+A super key is any set of attributes that can uniquely identify a record in a table.
+It may contain extra attributes beyond what is necessary for uniqueness. For example, 
+{student_id, name} is a super key if student_id alone can uniquely identify the student.
+
+
+✅ 7. Unique Key
+A unique key also ensures that all values in a column are unique, but unlike the primary key,
+it can accept one NULL value. For instance, in an “Employees” table, 
+the email column can be a unique key.
+
+
+
+📘 What is Normalization in DBMS?
+Normalization is the process of organizing data in a database to reduce data redundancy 
+(repeated data) and improve data integrity (accuracy and consistency).
+It involves dividing large, complex tables into smaller, related tables and linking 
+them using keys (like primary and foreign keys)
+
+👉 In short:
+Normalization = Breaking big messy tables into small, clean, and connected tables.
+
+
+🎯 Why Do We Need Normalization?
+🧹 Removes Redundancy
+Avoids storing the same data multiple times (e.g., customer address repeated in many rows).
+✅ Ensures Data Integrity
+Keeps data accurate — when you update or delete something, it updates everywhere correctly.
+⚡ Improves Efficiency
+Reduces the amount of data to process, which makes queries faster.
+🔗 Maintains Relationships
+Creates clear links between related data using foreign keys.
+🛡️ Prevents Anomalies
+Avoids update, insert, and delete anomalies — common problems in unnormalized data.
+
+
+🧱 1. First Normal Form (1NF)
+A table is in 1NF if all columns contain atomic (indivisible) values, and each record is unique. 
+This means there should be no repeating groups or arrays in a single column.
+📘 Example: Instead of storing Subjects = "Math, Science", you should store them 
+in separate rows for each subject.
+
+
+🧩 2. Second Normal Form (2NF)
+A table is in 2NF if it is already in 1NF, and every non-key attribute is 
+fully dependent on the entire primary key — not just part of it.
+📘 Example: In a table with a composite key (Student_ID, Course_ID), 
+the Course_Name should depend on Course_ID only — so it should be moved to a separate “Courses” table.
+
+
+🔗 3. Third Normal Form (3NF)
+A table is in 3NF if it is in 2NF and there are no transitive dependencies — meaning 
+non-key attributes must depend only on the primary key, not on other non-key attributes.
+📘 Example: If Student_ID → Department_ID and Department_ID → Department_Name,
+then Department_Name should be moved to a “Departments” table.
+
+🧠 4. Boyce-Codd Normal Form (BCNF)
+BCNF is a stronger version of 3NF. A table is in BCNF if for every functional 
+dependency (X → Y), X is a super key.
+📘 Example: If a table allows a non-key column to determine another column,
+ it violates BCNF — we must split it into two tables.
+
+🧾 5. Fourth Normal Form (4NF)
+A table is in 4NF if it is in BCNF and has no multi-valued dependencies.
+This means one key should not determine two independent sets of values.
+📘 Example: If a student can have multiple phone numbers and multiple hobbies, 
+these should be stored in two separate tables.
+
+🧮 6. Fifth Normal Form (5NF)
+A table is in 5NF if it is in 4NF and cannot be decomposed further without losing data.
+It removes join dependencies that are not implied by candidate keys.
+📘 Example: It ensures data reconstruction from smaller tables without redundancy or loss.
+
+🧮 6. Fifth Normal Form (5NF)
+A table is in 5NF if it is in 4NF and cannot be decomposed further without losing data.
+It removes join dependencies that are not implied by candidate keys.
+📘 Example: It ensures data reconstruction from smaller tables without redundancy or loss.
+
+🧰 6NF (Sixth Normal Form) (rarely used)
+6NF deals with temporal data (time-based data). It breaks tables down so 
+that each fact is stored separately and can change independently over time.
