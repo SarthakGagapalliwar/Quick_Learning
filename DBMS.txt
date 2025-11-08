@@ -109,4 +109,100 @@ It removes join dependencies that are not implied by candidate keys.
 
 🧰 6NF (Sixth Normal Form) (rarely used)
 6NF deals with temporal data (time-based data). It breaks tables down so 
-that each fact is stored separately and can change independently over time.
+that each fact is stored separately and can change independently over time. 
+
+
+
+⚙️ ACID Properties in DBMS
+ACID stands for Atomicity, Consistency, Isolation, and Durability.
+These properties ensure that database transactions are processed reliably,
+even in case of failures like power cuts or system crashes.
+
+A transaction = a single logical unit of work (e.g., transferring money between two bank accounts).
+
+💣 1. Atomicity → “All or Nothing”
+Meaning
+A transaction must be fully completed or not executed at all.
+If any part of the transaction fails, the entire transaction is rolled back — 
+no partial updates occur.
+
+📘 Example:
+When transferring ₹500 from Account A to B:
+Debit ₹500 from A ✅
+Credit ₹500 to B ✅
+If crediting fails, the debit is also canceled (rolled back).
+Either both happen, or neither happens.
+
+🧮 2. Consistency → “Valid State → Valid State”
+Meaning:
+A transaction must keep the database consistent before and after it runs.
+All rules, constraints, and relationships remain valid.
+
+📘 Example:
+If total money in both accounts is ₹10,000 before transfer,
+it must remain ₹10,000 after the transfer — not ₹9,500 or ₹10,500.
+All constraints (like balance ≥ 0) must hold true.
+
+🔒 3. Isolation → “Transactions Don’t Interfere”
+Meaning:
+Multiple transactions can run at the same time, but each behaves as if it’s running alone.
+The operations of one transaction should not affect another until it’s complete.
+
+📘 Example:
+If two users are booking the same movie seat at the same time,
+isolation ensures that only one booking succeeds, avoiding conflicts or double booking.
+
+🧱 4. Durability → “Once Done, It Stays Done”
+Meaning:
+Once a transaction is committed, the changes are permanent — even if the system crashes right after.
+
+📘 Example:
+After a successful money transfer, even if the power goes off,
+the updated balances are safely stored in the database and won’t be lost.
+
+🧠 In short:
+ACID ensures reliability in transactions — even when multiple users or failures occur.
+
+
+⚙️ DELETE vs TRUNCATE in DBMS
+Both commands are used to remove data from a table,
+but they differ in how they work and what they affect.
+
+🗑️ 1. DELETE Command
+DELETE is a DML (Data Manipulation Language) command.
+It removes specific rows (records) from a table using a WHERE condition.
+You can control which rows to delete.
+The table structure remains, and you can rollback the changes (if inside a transaction).
+
+DELETE FROM students WHERE student_id = 5;
+
+✅ Key Points:
+Slower (deletes row by row).
+Can use WHERE clause.
+Can be rolled back.
+Triggers fire (if defined).
+Auto-increment value does not reset.
+
+💣 2. TRUNCATE Command
+TRUNCATE is a DDL (Data Definition Language) command.
+It removes all rows from a table — no WHERE condition allowed.
+It’s much faster because it deallocates data pages instead of deleting row by row.
+You cannot rollback once truncated (in most databases).
+It resets the auto-increment counter.
+
+TRUNCATE TABLE students;
+📘 Example:
+Deletes all records from the “students” table instantly,
+but the table remains with its structure intact.
+
+✅ Key Points:
+Very fast.
+Removes all rows at once.
+Cannot use WHERE.
+Usually cannot rollback.
+Auto-increment value resets to 1.
+No triggers fired.
+
+💡 In short:
+🔸 DELETE → Remove specific data, can rollback.
+🔸 TRUNCATE → Remove all data quickly, cannot rollback.
