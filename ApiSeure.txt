@@ -52,3 +52,53 @@ Redirect all HTTP requests to HTTPS:
 | 3 | Token Protection | Secure access control            | JWT, OAuth2, Passport.js  |
 | 4 | Error Handling   | Hide sensitive info              | Express middleware        |
 | 5 | HTTPS            | Encrypt communication            | SSL/TLS, Let’s Encrypt    |
+
+
+
+
+A parameterized query (also called a prepared statement) is a secure way to execute SQL queries in your application
+— it helps prevent SQL injection attacks and makes your code cleaner and reusable.
+
+🔹 What is a Parameterized Query?
+
+A parameterized query is an SQL query where placeholders (? or named parameters like :name) are used instead of directly embedding user input.
+Then, actual values are safely bound to those placeholders before the query executes.
+
+
+
+// Example in Node.js
+const username = req.body.username;
+const password = req.body.password;
+
+const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`;
+db.execute(query); // ❌ Vulnerable to SQL Injection
+
+If someone enters admin' OR '1'='1,
+this query becomes:
+
+SELECT * FROM users WHERE username = 'admin' OR '1'='1' AND password = '...';
+👉 This can log in anyone without a valid password.
+
+✅ With Parameterized Query (Safe)
+Example in Node.js (MySQL)
+
+const query = 'SELECT * FROM users WHERE username = ? AND password = ?';
+db.execute(query, [username, password]);
+
+
+Example in Python (SQLite)
+cursor.execute("SELECT * FROM users WHERE username = ? AND password = ?", (username, password))
+
+
+🧩 Benefits of Parameterized Queries
+🛡️ Prevents SQL Injection
+⚙️ Improves performance (query plan caching)
+🧼 Cleaner code (no string concatenation)
+🔁 Reusable queries
+
+| Concept                 | Description                         |
+| ----------------------- | ----------------------------------- |
+| **Parameterized query** | SQL query with placeholders         |
+| **Why use it**          | Prevents SQL injection              |
+| **Placeholder type**    | `?` (positional) or `:name` (named) |
+| **Used in**             | Node.js, PHP, Python, Java, etc.    |
