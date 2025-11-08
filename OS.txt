@@ -1,0 +1,76 @@
+⚙️ 1. Process Scheduling
+Definition:
+Process scheduling is the method used by the operating system to decide 
+which process runs next on the CPU.
+Because the CPU can run only one process at a time (per core), scheduling
+ensures fairness, efficiency, and responsiveness.
+
+Types of Schedulers:
+Long-term scheduler – selects which processes are admitted to the ready queue.
+Short-term scheduler – decides which process runs next (on the CPU).
+Medium-term scheduler – handles suspended or swapped processes.
+
+Common Scheduling Algorithms:
+FCFS (First Come First Serve) – executes in order of arrival.
+SJF (Shortest Job First) – runs the smallest process first.
+Priority Scheduling – based on assigned priorities.
+Round Robin (RR) – each process gets equal time in turns.
+Multilevel Queue – different queues for different process types.
+
+
+
+⚠️ 2. Deadlock Conditions (Coffman’s Conditions)
+Definition:
+A deadlock occurs when two or more processes are stuck forever, waiting for resources that the other holds.
+Coffman’s Four Necessary Conditions (for deadlock to occur):
+
+Mutual Exclusion – At least one resource cannot be shared (only one process can use it at a time).
+Hold and Wait – A process holds one resource while waiting for another.
+No Preemption – Resources cannot be forcibly taken away; they must be released voluntarily.
+Circular Wait – A circular chain of processes exists where each holds one resource and waits for another.
+
+💡 If any one of these four is prevented, deadlock cannot occur.
+
+📘 Example:
+Process A holds a printer and needs a scanner;
+Process B holds a scanner and needs a printer → deadlock!
+
+
+🚦 3. Semaphores
+Definition:
+A semaphore is a synchronization tool used to manage access to shared resources in concurrent (multi-process) systems.
+It helps avoid race conditions where multiple processes try to modify shared data at once.
+Types:
+Binary Semaphore (Mutex): Has only two values (0 and 1); used for locking a resource.
+Counting Semaphore: Allows multiple instances of a resource.
+Operations:
+wait (P operation): Decreases the semaphore value. If it’s < 0, the process waits.
+signal (V operation): Increases the semaphore value and wakes up a waiting process.
+📘 Example:
+If two processes want to print on one printer, a semaphore ensures only one prints at a time.
+
+
+🧠 4. Memory Allocation
+Definition:
+Memory allocation refers to how the OS assigns memory blocks to programs and processes.
+It ensures efficient use of memory and prevents overlapping or wastage.
+Types:
+Contiguous Allocation – Each process gets one continuous block of memory.
+Simple but can cause fragmentation (unused gaps).
+Non-contiguous Allocation – Memory is divided into chunks that can be scattered.
+More flexible and reduces fragmentation.
+
+Methods:
+Fixed Partitioning: Memory divided into fixed-size blocks.
+Dynamic Partitioning: Blocks sized according to process needs.
+Paging: Memory divided into fixed-size pages and frames.
+Segmentation: Divides memory logically based on program structure (code, data, stack).
+
+
+🧩 Quick Summary Table
+| Concept                | Meaning                                        | Example                                 | Purpose                |
+| ---------------------- | ---------------------------------------------- | --------------------------------------- | ---------------------- |
+| **Process Scheduling** | Deciding which process runs next               | Round Robin CPU sharing                 | CPU efficiency         |
+| **Deadlock (Coffman)** | Processes waiting forever                      | A waits for B’s resource and vice versa | Avoid system freeze    |
+| **Semaphores**         | Synchronization tool to manage resource access | Binary semaphore for printer            | Prevent race condition |
+| **Memory Allocation**  | Distributing RAM to processes                  | Paging, segmentation                    | Efficient memory use   |

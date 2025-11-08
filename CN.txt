@@ -1,0 +1,79 @@
+🌐 OSI Model (Open Systems Interconnection Model)
+🔹 Definition:
+The OSI model is a conceptual framework that describes how data moves across a network 
+— from one computer to another.
+It divides the communication process into 7 layers, where each layer has its own specific functions.
+
+🧱 The 7 Layers of the OSI Model
+1️⃣ Physical Layer
+Function:
+Deals with the actual transmission of raw bits (0s and 1s) over a physical medium such as cables, Wi-Fi, or fiber optics.
+It defines hardware devices, cables, voltages, and data rates.
+📘 Example: Ethernet cables, network cards, hubs, repeaters.
+💡 It sends electrical signals — not meaningful data
+
+2️⃣ Data Link Layer
+Function:
+Responsible for node-to-node delivery and error detection/correction.
+It ensures reliable transmission of data across the physical network link using frames.
+📘 Example: MAC addresses, switches, and protocols like Ethernet & PPP.
+💡 Divides data into frames and handles collisions.
+
+3️⃣ Network Layer
+Function:
+Handles routing and forwarding of data between devices on different networks.
+It uses logical addressing (IP addresses) to determine the best path for data.
+📘 Example: Routers, IP (IPv4/IPv6), ICMP.
+💡 Delivers packets from source to destination across multiple networks.
+
+4️⃣ Transport Layer
+Function:
+Ensures end-to-end communication between devices, managing segmentation, error recovery, and flow control.
+It guarantees reliable or unreliable delivery depending on the protocol used.
+📘 Protocols: TCP (reliable), UDP (faster, no guarantee).
+💡 Breaks data into segments and ensures they arrive in order.
+
+5️⃣ Session Layer
+Function:
+Manages and controls sessions (connections) between two devices.
+It handles session creation, maintenance, and termination.
+📘 Example: Login sessions, video calls, or remote desktop connections.
+💡 Maintains communication state between sender and receiver.
+
+6️⃣ Presentation Layer
+Function:
+Responsible for data translation, encryption, and compression.
+It ensures the data sent by the sender is readable by the receiver, even if they use different formats.
+📘 Example: SSL/TLS encryption, JPEG, MPEG, ASCII, EBCDIC.
+💡 It acts as a “translator” — formats and secures data.
+
+7️⃣ Application Layer
+Function:
+This is the topmost layer — where users interact with the network through applications.
+It provides network services like email, web browsing, file transfer, and chatting.
+📘 Example: HTTP, HTTPS, FTP, SMTP, DNS, POP3.
+💡 Directly interacts with the user or software application.
+
+🧩 Quick Summary Table
+
+| Layer No. | Layer Name   | Data Unit | Function                                  | Devices/Protocols  |
+| --------- | ------------ | --------- | ----------------------------------------- | ------------------ |
+| **7**     | Application  | Data      | User interface & services                 | HTTP, FTP, SMTP    |
+| **6**     | Presentation | Data      | Data translation, encryption, compression | SSL, TLS, JPEG     |
+| **5**     | Session      | Data      | Manage sessions between apps              | NetBIOS, RPC       |
+| **4**     | Transport    | Segments  | Reliable delivery, flow control           | TCP, UDP           |
+| **3**     | Network      | Packets   | Routing & addressing                      | Routers, IP, ICMP  |
+| **2**     | Data Link    | Frames    | Node-to-node delivery, error detection    | Switches, Ethernet |
+| **1**     | Physical     | Bits      | Transmission of raw bits                  | Cables, Hubs, NIC  |
+
+
+Trick to Remember OSI Layers (Top to Bottom):
+
+All People Seem To Need Data Processing
+→ Application, Presentation, Session, Transport, Network, Data Link, Physical
+Or (Bottom to Top):
+Please Do Not Throw Sausage Pizza **Away 🍕
+
+💡 In short:
+The OSI model helps standardize how computers communicate,
+ensuring different devices and software can talk to each other smoothly.
