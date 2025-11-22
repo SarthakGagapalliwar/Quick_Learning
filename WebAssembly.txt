@@ -105,3 +105,6 @@ Graphics rendering → WebGPU
 ML heavy compute → WebGPU
 ML model orchestration → Wasm
 
+🏁 Summary (one line each)**
+WebAssembly = Run non-JS code extremely fast on CPU.
+WebGPU = Use the GPU for graphics and parallel compute.
