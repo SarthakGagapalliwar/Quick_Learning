@@ -1,0 +1,96 @@
+What Happens When You Type a URL in the Browser
+
+1. URL is parsed
+The browser breaks the URL into parts:
+Protocol: https
+Domain: google.com
+Path: /search
+
+2. Browser checks cache
+Before making a network request, the browser checks:
+Browser DNS cache
+OS DNS cache
+Router cache
+ISP cache
+If domain is found → skip DNS lookup.
+
+3. DNS Lookup
+If the IP is not cached, the browser asks DNS servers to resolve:
+
+google.com → 142.250.183.14
+Uses UDP (mostly) to contact DNS servers.
+
+
+4. Browser establishes a connection (TCP Handshake)
+Browser creates a TCP connection to the server:
+
+Three-way handshake:
+SYN
+SYN-ACK
+ACK
+
+For HTTPS → next step happens.
+
+5. TLS/SSL Handshake (for HTTPS)
+To create a secure connection:
+Browser and server exchange certificates
+Key exchange happens
+A secure encrypted channel is created
+**Now communication is encrypted.....
+
+
+6. Browser sends the HTTP request
+
+GET /search HTTP/1.1
+Host: google.com
+User-Agent: Chrome
+Accept: text/html
+Browser also sends cookies, tokens, etc.
+
+
+7. Server processes the request
+Server does:
+Routing
+Database queries
+Business logic
+Generates HTML/JSON response
+
+
+8. Server sends the HTTP response
+Example response:
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 10240
+
+Response body contains:
+HTML
+CSS
+JS
+Images
+JSON (for APIs)
+
+
+
+9. Browser receives and renders
+Browser rendering steps:
+a. HTML → DOM
+b. CSS → CSSOM
+c. DOM + CSSOM → Render Tree
+d. Layout
+e. Painting pixels on screen
+
+
+Then:
+JavaScript is executed
+Additional resources are fetched (CSS, JS, images)
+
+
+10. Page is displayed
+Browser now shows the webpage to the user.
+
+
+“When you type a URL, the browser parses it, 
+checks cache, performs a DNS lookup, establishes a TCP and TLS handshake, 
+sends an HTTP request, receives the response, constructs the DOM and CSSOM, 
+runs JavaScript, renders the page, and displays it.”
+
