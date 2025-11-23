@@ -1,0 +1,45 @@
+✅ What is WebRTC?
+WebRTC (Web Real-Time Communication) is a technology that allows real-time communication
+(audio, video, and data) directly between browsers or devices without needing a server 
+in the middle after the connection is established.
+
+It enables:
+Live video calls
+Voice calls
+Real-time messaging
+Peer-to-peer file sharing
+All directly between users using their browsers.
+
+🧩 How WebRTC works (Very simple)
+WebRTC connects two devices directly using Peer-to-Peer (P2P) communication.
+
+Steps:
+Both browsers exchange connection information using a signalling server
+A direct P2P connection is created
+Audio/Video/Data flows directly between devices
+
+
+WebRTC is a technology that enables real-time audio, video, and data communication directly between 
+browsers using peer-to-peer connections. It is used in video calling apps, 
+voice calls, screen sharing, real-time messaging, and P2P file sharing.
+
+
+🔥 WebRTC vs WebSockets — Explained Clearly
+
+| Feature                   | **WebRTC**                                                 | **WebSockets**                     |
+| ------------------------- | ---------------------------------------------------------- | ---------------------------------- |
+| **Type**                  | Peer-to-peer communication                                 | Client ↔ Server communication      |
+| **Use Case**              | Real-time audio, video, P2P data                           | Real-time text/data                |
+| **Latency**               | Ultra-low latency                                          | Low latency                        |
+| **Server Involvement**    | Needed only for signaling                                  | Needed for entire communication    |
+| **Supports Audio/Video?** | ✔ Yes                                                      | ❌ No                               |
+| **Best For**              | Video calls, voice calls, screen sharing, P2P file sharing | Chats, notifications, live updates |
+| **Protocol**              | Uses UDP (mostly) + SRTP                                   | Uses TCP                           |
+| **Security**              | DTLS / SRTP                                                | WSS (TLS)                          |
+| **Data Transfer**         | High-volume, fast P2P                                      | Continuous reliable messages       |
+
+
+WebSockets provide full-duplex communication between client and server, ideal for chats 
+and live updates. WebRTC provides peer-to-peer communication designed for real-time 
+audio, video, and fast data transfer. WebSockets rely on TCP while WebRTC uses
+UDP-based protocols for low latency.
