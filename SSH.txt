@@ -1,0 +1,56 @@
+✅ What is an SSH Connection?
+SSH (Secure Shell) is a protocol used to securely connect to a 
+remote computer or server over a network.
+
+An SSH connection means you are connecting to another machine securely using encryption.
+
+🔐 What does SSH do?
+When you use SSH:
+Your password is encrypted
+Your commands are encrypted
+Your data is encrypted
+Hackers cannot read what you send
+It is the safest way to administer remote servers.
+
+
+🧠 Why do we use SSH?
+✔ To access remote servers
+✔ To run commands on a remote machine
+✔ To upload/download files securely
+✔ To manage cloud servers (AWS, DigitalOcean, etc.)
+
+SSH connection is a secure, encrypted way to access and control a 
+remote computer over a network. It lets you login to servers, run commands, 
+transfer files, and manage systems safely.
+
+
+✅ What is SSH Tunneling?
+SSH tunneling (also called SSH port forwarding) is a technique where you use an SSH connection 
+to securely send data from one computer to another by tunneling traffic through an 
+encrypted SSH channel.
+
+👉 SSH tunneling creates a secure, encrypted path for your data through SSH.
+
+It allows you to safely access services that are:
+Behind a firewall
+On a private network
+Not exposed to the internet
+
+🧠 Why do we use SSH tunneling?
+✔ 1. To access a remote resource securely
+Example: Access a database hosted only on a private network.
+
+✔ 2. To bypass network restrictions
+Like opening a blocked website by routing traffic through a secure server.
+
+✔ 3. To protect sensitive data
+All communication inside the tunnel is end-to-end encrypted.
+
+✔ 4. To securely connect to internal servers from outside
+You can reach internal APIs, MySQL, MongoDB, Redis, etc.
+
+🎯 Short Interview Answer
+
+SSH tunneling is a way to securely forward network traffic through an 
+encrypted SSH connection. It is used to access remote services safely, 
+bypass restrictions, and protect sensitive data using port forwarding (local, remote, or dynamic).
