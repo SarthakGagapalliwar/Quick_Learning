@@ -1,0 +1,64 @@
+How to Handle Millions of Reactions Without Killing Your Database?
+
+in this we use [Batch Processsing]
+
+
+Normal / simple case
+User taps Like on social media app.
+App sends a request to backend: POST /likes.
+Backend directly writes one row into the database.
+This is fine when traffic is low.
+
+Problem: Celebrity post with millions of likes
+If 10 lakh people like the post at the same time:
+Backend will try to do 10 lakh separate INSERTs to the database.
+DB gets overloaded → becomes very slow or even crashes.
+So we don’t want to hit the DB directly for every single like.
+
+Solution: Batch Processing with Queue
+Instead of:
+App → Backend → Database (1 like = 1 DB write)
+
+We do this:
+1. User likes a post
+App sends POST /likes to backend
+
+2. Backend does NOT write to DB directly
+Backend just pushes a small message to a queue (Redis in the image).
+Example message: { userId, postId, timestamp }
+
+3. Redis stores all likes as a queue
+All likes are stored as messages:
+like1, like2, like3, ...
+
+4. Worker service runs in background
+Worker keeps fetching a batch of messages from Redis
+e.g. 100 or 1000 likes at a time.
+This is the “Fetch batch” arrow in the image
+
+5. Worker does a mass insert
+Instead of 1000 separate queries, worker does one bulk insert:
+INSERT INTO likes (user_id, post_id, created_at)
+VALUES (...), (...), (...), ...;   -- 1000 rows at once
+
+6. Result
+Database sees fewer, bigger queries (e.g. 1000 big inserts instead of 10 lakh tiny ones).
+System is more stable, faster, and cheaper.
+If DB is temporarily slow, likes are still safe in Redis queue and can be retried.
+
+That’s how we handle millions of reactions without killing the DB.
+
+
+Here’s a cleaned-up version you can use in notes / answer:
+
+When a user likes a post in a social media app, 
+the app sends a POST /likes request to the backend. In a simple design, 
+the backend would directly insert that like into the database. This works for small traffic,
+but if a celebrity posts something and millions of users like it at the same time, 
+the database will receive millions of insert queries and can get overloaded.
+To handle this, we use batch processing. Instead of writing to the database immediately,
+the backend pushes each like into a queue (for example, Redis).
+A separate worker service reads likes from the queue in
+batches (e.g. 100 or 1000 at a time) and performs a bulk insert into the database.
+This reduces the load on the database, keeps the app fast for users,
+and makes the system more reliable.
