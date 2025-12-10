@@ -1,6 +1,5 @@
 How to Handle Millions of Reactions Without Killing Your Database?
-
-in this we use [Batch Processsing]
+=> in this we use [Batch Processsing]
 
 
 Normal / simple case
