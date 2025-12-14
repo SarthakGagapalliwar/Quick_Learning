@@ -1,0 +1,41 @@
+What are tokens?
+A token is the basic unit of text that the model processes
+They can be whole words, parts of words, individual characters, or even
+punctuation marks
+Depending on the context and the model you're using, the same word might be
+tokenized differently
+
+For example, the word "hamburger"
+model 1: "ham", "bur", and "ger"
+model 2: "ham" and "burger"
+A sentence like "l love to eat pizza!"
+Tokenized into: "l", "love", "to", "eat", "pizza",
+6 tokens in total
+
+Why tokens matter?
+They directly impact your application in three important ways:
+-How much text you can process at once
+-How much your API calls will cost
+-The quality of your results
+
+Context window
+-Every model has a context window which represents how much information a
+model can process in a single conversation (short-term memory)
+-GPT-4. I-nano can handle up to 1 million tokens in a single conversation
+-One million tokens is roughly 2,500 to 3,000 pages of text. That's equivalent to
+feeding the entire Lord of the Rings trilogy to the model at once
+-When you hit that limit, older information starts getting pushed out to make room
+for new stuff
+-Imagine the model's memory as a whiteboard: as you keep writing, you eventually
+run out of space, so you have to erase the oldest notes to add new ones
+
+
+Input vs output tokens
+Input tokens are everything you send to the model
+Output tokens are everything the model generates in response
+
+Why does this distinction matter?
+-different models have different input/output token limits
+-input and output tokens often have different pricing
+-understanding this helps you optimize your API costs
+ 

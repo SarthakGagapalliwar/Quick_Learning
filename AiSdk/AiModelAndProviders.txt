@@ -1,0 +1,103 @@
+What is an Ai model?
+An Ai model is=>
+- a program that has been trained on a set of data
+- to recognize patterns
+- makes predictions
+- without human intervention
+
+A really smart assistant who has read millions of books and can now help you
+write, analyze, or create based on all that knowledge
+
+Al models power everything from the autocomplete in your phone's keyboard to
+self-driving cars   
+
+Types of Ai models
+1. Text generation models(Langauage models):
+They process and generate human-like text, perfect for everything from writing
+and analysis to conversation and code
+
+Large Langauage Models (LLMs)
+They're "large" because they were trained on absolutely massive amounts of text data
+GPT-4 was trained on hundreds of billions of words
+
+2.Embedding models:
+instead of generating text, they convert text into number - specifically, vectors that
+capture the meaning of the text.
+Imagine if you could turn the meaning of a sentence into a set of coordinates on a
+map. Similar meanings would be close together on that map.
+You might not use these directly as often, but they're working behind the scenes in
+features like content recommendations
+For example, you find "Italian restaurants" when you search for "pasta places"
+
+
+3.image models:
+These either generate images from text descriptions or analyze existing images
+Examples: Midjourney, Dall-E, and Flux
+Perfect for generating product images, analyzing uploaded photos, or creating
+visual content on the fly
+
+4.Multi-model models:
+The Swiss Army knives of the Ai world
+These can handle text,images, or images, or sometimes even audio, any they'll process it all
+They're incredibly versatile but often come with higher costs
+Examples: GPT-4, Claude 4, and Gemini fall into this category
+
+
+Model characteristics
+
+1. Context window:
+-how much information a model can process in a single conversation
+think of it as the model's working memory
+-some models can only handle a few pages of text at once, while others can
+process entire books
+-if you're building a document analysis app, you'll want a model with a
+large context window
+-for simple Q&A or basic chat, a model with a smaller context window works
+just fine
+
+2.intelligence:
+-determines how well a model understands nuance, follows complex
+instructions, and generates high-quality output
+-less capable models are great for straightforward tasks like answering FAQs,
+categorizing text or following templates
+-when you need creativity, complex problem-solving or understanding context
+and subtext, you reach for the more capable models
+-always match the model to your task complexity
+
+3.Speed
+-all about response time
+-if users are waiting for a response, like in a chat interface, you need speed
+-if you're generating reports in the background, use a slower model with better
+quality
+
+4.Cost
+-faster, smarter, larger context window models cost more
+-use the cheaper models during development
+
+
+Choosing the right model contd.
+-For real time features like autocomplete or a simple chat interface, speed is king.
+Users expect instant responses so pick a fast model, even if it's not the smartest
+-For generating content, quality beats speed. Users will wait an extra second or
+two for better writing so pick a more intelligent model
+-For analyzing documents, you need a large context window to fit everything. Don't
+try to squeeze a large PDF through a small model
+-Always test and experiment with different models to find the right balance for your
+use case
+-Choosing between a sports car and a city car - both get you where you need to
+go, but one is built for performance while the other is built for efficiency
+
+
+**** Providers ****
+if models are cars, providers are the manufactures
+
+-Companies like OpenAl, Anthropic, Google, etc are like your Ford, BMW, and
+Mercedes of the Al world
+-Each provider invests hundreds of millions in research, has their own approach,
+and offers different strengths
+
+Choosing a provider
+Reliability: How stable is their service?
+Pricing: What's your budget?
+Features: Do they offer what you need?
+Privacy: How do they handle your data?
