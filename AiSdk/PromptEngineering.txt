@@ -1,0 +1,58 @@
+Prompt engineering
+
+rompt engineering is the practice of crafting instructions to get better, more
+appropriate outputs from Al models
+It's not about changing the Al model itself. It's about guiding it to produce
+esponses that fit your application perfectly
+ou have a brilliant chef who can cook anything
+"make lunch" versus
+"prepare a Thai red curry and sticky rice for someone who likes mild heat"
+
+Good prompt engineering:
+- ensures responses match your users' needs and knowledge level
+- creates consistency, so similar questions get similar types of responses
+- can actually reduce costs by encouraging more concise responses that use
+fewer tokens
+
+Users never see any of this
+The Al just naturally responds in the right way for your application.
+
+
+Prompt engineering techniques
+
+System prompts
+1. They are special instructions that shape how the Al behaves throughout
+an entire conversation.
+2. Few-shot learning
+Sometimes telling the Al what to do isn't enough
+
+
+Prompt engineering best practices
+- start simple and iterate
+- be specific but not overly restrictive
+- consider your audience
+- monitor costs
+- test edge cases
+- document what works
+
+
+
+Structured data
+We've been generating text responses from Al
+Great for chat interfaces and content generation
+When you're building the frontend of an application, you often need data in a
+specific format.
+If you're building a recipe app, you don't want the Al to just write paragraphs about
+cooking
+You need ingredients as an array, steps in order, cooking times as numbers
+If you're building a task management app, you need tasks with specific properties
+like title, priority and due date.
+You could try to parse the Al's text response and extract the data yourself
+That's messy and error-prone because what if the Al formats things differently
+each time?
+Structured data generation
+We can tell the Al exactly what shape we want the response in, and it'll give us
+back proper objects and arrays that we can use directly in our code.
+
+
+ 
