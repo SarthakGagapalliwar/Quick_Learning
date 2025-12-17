@@ -1,0 +1,96 @@
+1️⃣ What they are
+🔹 Fetch
+Built-in Web API (no installation needed)
+Available in browsers and modern Node.js
+
+Promise-based
+🔹 Axios
+Third-party library
+Works in browser & Node.js
+Built on top of Promises
+
+
+2️⃣ Syntax & Ease of Use
+Fetch (more boilerplate)
+fetch("/api/users")
+  .then(res => {
+    if (!res.ok) throw new Error("Error");
+    return res.json();
+  })
+  .then(data => console.log(data));
+
+
+Axios (cleaner)
+axios.get("/api/users")
+  .then(res => console.log(res.data));
+  👉 Axios is easier and cleaner
+
+
+3️⃣ Error Handling (BIG difference ⚠️)
+Fetch
+❌ Does NOT reject promise on HTTP errors (404, 500)
+You must manually check res.ok
+
+Axios
+✅ Automatically rejects promise on HTTP errors
+👉 Axios has better default error handling
+
+4️⃣ JSON Handling
+Fetch
+You must manually convert:  res.json()
+
+Axios
+Automatically converts JSON = res.data
+👉 Axios saves extra code
+
+5️⃣ Request & Response Interceptors
+Fetch
+❌ No built-in interceptors
+
+Axios
+✅ Supports interceptors (auth tokens, logging)
+
+6️⃣ Timeout Support
+Fetch
+❌ No native timeout (needs AbortController)
+
+Axios
+✅ Built-in timeout
+axios.get("/api", { timeout: 5000 });
+
+7️⃣ Browser Support
+| Feature               | Fetch | Axios |
+| --------------------- | ----- | ----- |
+| Built-in              | ✅     | ❌     |
+| Older browser support | ❌     | ✅     |
+| Automatic JSON        | ❌     | ✅     |
+| Interceptors          | ❌     | ✅     |
+
+
+8️⃣ File Upload & Download
+Axios
+Easier file uploads/downloads
+Better progress tracking
+
+axios.post("/upload", formData, {
+  onUploadProgress: p => console.log(p.loaded)
+});
+
+
+
+9️⃣ When to use what? 🤔
+✅ Use Fetch when:
+Small project
+No extra dependency
+Simple API calls
+
+✅ Use Axios when:
+Medium/Large project
+Need interceptors
+Better error handling
+File upload/download
+Cleaner code
+
+etch is a built-in Web API but requires more manual handling, 
+while Axios is a third-party library that provides cleaner syntax,
+ automatic JSON parsing, better error handling, interceptors, and timeout support.
